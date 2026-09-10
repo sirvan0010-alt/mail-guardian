@@ -11,7 +11,7 @@ public sealed class SmtpFailureClassifierTests
     {
         var exception = new SmtpCommandException(
             SmtpErrorCode.MessageNotAccepted,
-            SmtpStatusCode.MailboxUnavailable,
+            SmtpStatusCode.MailboxBusy,
             "temporary failure");
 
         var result = SmtpFailureClassifier.Classify(exception);
@@ -30,7 +30,8 @@ public sealed class SmtpFailureClassifierTests
 
         var result = SmtpFailureClassifier.Classify(exception);
 
-        Assert.Equal(SmtpFailureKind.Temporary, result.Kind);
+        Assert.Equal(SmtpFailureKind.Permanent, result.Kind);
+        Assert.Equal(550, result.StatusCode);
     }
 
     [Fact]
