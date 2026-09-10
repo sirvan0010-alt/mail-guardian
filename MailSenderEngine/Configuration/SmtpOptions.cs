@@ -17,4 +17,10 @@ public sealed class SmtpOptions
 
     [Required]
     public string Password { get; init; } = string.Empty;
+
+    [Required]
+    [EmailAddress]
+    public string FromAddress { get; init; } = string.Empty;
+
+    public string FromDisplayName { get; init; } = "MailSenderEngine";
 }
