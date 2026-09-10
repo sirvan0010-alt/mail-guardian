@@ -6,7 +6,7 @@ public static class AuthMethodHelper
 {
     /// <summary>
     /// Pro OAuth2 se do parametru "pass" očekává hotový access token
-    /// (tenhle nástroj token sám nezískává – to je mimo rozsah SMTP load testeru).
+    /// (tenhle nástroj token sám nezískává — to je mimo rozsah SMTP load testeru).
     /// </summary>
     public static SaslMechanism CreateSasl(SmtpAuthMethod method, string user, string pass)
     {
