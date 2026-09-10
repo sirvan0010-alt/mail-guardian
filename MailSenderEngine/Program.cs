@@ -6,6 +6,9 @@ using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder(args);
 
+// Environment variables use the standard .NET hierarchical form:
+// MAILSENDER_Smtp__Host, MAILSENDER_Smtp__Port, MAILSENDER_Smtp__User,
+// MAILSENDER_Smtp__Password, MAILSENDER_Smtp__FromAddress.
 builder.Configuration.AddEnvironmentVariables("MAILSENDER_");
 
 builder.Services
@@ -29,7 +32,7 @@ if (args.Length > 0 && string.Equals(args[0], "--send", StringComparison.Ordinal
     var sender = host.Services.GetRequiredService<SingleMailSender>();
     var message = new MailMessage(args[1], args[2], args[3]);
 
-    await sender.SendAsync(message, host.Services.GetRequiredService<IHostApplicationLifetime>().ApplicationStopping);
+    await sender.SendAsync(message, CancellationToken.None);
     return;
 }
 
